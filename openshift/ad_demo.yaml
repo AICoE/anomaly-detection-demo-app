@@ -116,6 +116,20 @@ objects:
       type: ClusterIP
 
   - apiVersion: v1
+    kind: Service
+    metadata:
+      name: ${APP_SERVICE_NAME}-metrics
+      labels:
+        app: ${APP_SERVICE_NAME}
+        template: ${APP_SERVICE_NAME}-app
+    spec:
+      ports:
+        - port: 9153
+          name: metrics
+      selector:
+        deploymentconfig: ${APP_SERVICE_NAME}
+
+  - apiVersion: v1
     kind: Route
     metadata:
       labels:
@@ -128,6 +142,16 @@ objects:
         kind: Service
         name: ${APP_SERVICE_NAME}
 
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      labels:
+        app: ${APP_SERVICE_NAME}
+      name: ${APP_SERVICE_NAME}-metrics
+    spec:
+      to:
+        kind: Service
+        name: ${APP_SERVICE_NAME}-metrics
 parameters:
   - name: APP_SERVICE_NAME
     displayName: App service name
