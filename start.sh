@@ -1,6 +1,7 @@
 # start.sh
 export FLASK_APP=app
 # export FLASK_ENV=development
+export prometheus_multiproc_dir=/tmp
 export ES_HOST_URL=http://lad-elasticsearch-service-aiops-prod-prometheus-scrape.cloud.paas.psi.redhat.com
 
 # Gunicorn environment variables
@@ -15,7 +16,7 @@ PYTHONPATH=/etc/superset:/opt/superset/work-dir:$PYTHONPATH
 AD_DEMO_REPO=${AD_DEMO_REPO_OWNER}/${AD_DEMO_NAME}
 AD_DEMO_NAME=${AD_DEMO_NAME}
 AD_DEMO_HOME=/var/lib/ad_demo
-export GUNICORN_CMD_ARGS="--workers ${GUNICORN_WORKERS} --timeout ${GUNICORN_TIMEOUT} --bind ${GUNICORN_BIND} --limit-request-line ${GUNICORN_LIMIT_REQUEST_LINE} --limit-request-field_size ${GUNICORN_LIMIT_REQUEST_FIELD_SIZE}"
+export GUNICORN_CMD_ARGS="--workers ${GUNICORN_WORKERS} --timeout ${GUNICORN_TIMEOUT} --bind ${GUNICORN_BIND} --limit-request-line ${GUNICORN_LIMIT_REQUEST_LINE} --limit-request-field_size ${GUNICORN_LIMIT_REQUEST_FIELD_SIZE} --config=config.py"
 
 function main(){
   PROD="false"

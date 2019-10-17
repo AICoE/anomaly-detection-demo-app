@@ -17,8 +17,9 @@ ENV GUNICORN_BIND=0.0.0.0:8088 \
     PYTHONPATH=/etc/superset:/opt/superset/work-dir:$PYTHONPATH \
     AD_DEMO_REPO=${AD_DEMO_REPO_OWNER}/${AD_DEMO_NAME}\
     AD_DEMO_NAME=${AD_DEMO_NAME} \
-    AD_DEMO_HOME=/var/lib/ad_demo
-ENV GUNICORN_CMD_ARGS="--workers ${GUNICORN_WORKERS} --timeout ${GUNICORN_TIMEOUT} --bind ${GUNICORN_BIND} --limit-request-line ${GUNICORN_LIMIT_REQUEST_LINE} --limit-request-field_size ${GUNICORN_LIMIT_REQUEST_FIELD_SIZE}"
+    AD_DEMO_HOME=/var/lib/ad_demo \
+    prometheus_multiproc_dir=/tmp
+ENV GUNICORN_CMD_ARGS="--workers ${GUNICORN_WORKERS} --timeout ${GUNICORN_TIMEOUT} --bind ${GUNICORN_BIND} --limit-request-line ${GUNICORN_LIMIT_REQUEST_LINE} --limit-request-field_size ${GUNICORN_LIMIT_REQUEST_FIELD_SIZE} --config=config.py"
 
 USER 0
 
@@ -44,4 +45,3 @@ WORKDIR $AD_DEMO_NAME
 ## Deploy application
 EXPOSE 8088
 CMD ["gunicorn", "app:create_app()"]
-
