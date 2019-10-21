@@ -1,7 +1,7 @@
 FROM registry.access.redhat.com/ubi8/python-36
 
 # Demo App version
-ARG AD_DEMO_REPO_OWNER=HumairAK
+ARG AD_DEMO_REPO_OWNER=AICoE
 
 # Must match repo name on vcs
 ARG AD_DEMO_NAME=anomaly-detection-demo-app
